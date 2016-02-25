@@ -14,43 +14,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-    private var task: NSURLSessionTask? = nil
-
     var photo: Photo? = nil {
         didSet {
-            // Cancel prewious task to avoid loading wrong image
-            task?.cancel()
+            oldValue?.cancelLoadingImage()
             loading = true
-
-            if let image = ImageCache.get(photo!.url) {
-                loading = false
-                imageView.image = image
-
-                print("Photo loaded from cache")
-            } else {
-
-                task = NSURLSession.sharedSession().dataTaskWithRequest(NSURLRequest(URL: NSURL(string: photo!.url)!)) { data, response, downloadError in
-                    dispatch_async(dispatch_get_main_queue()) {
-                        guard downloadError == nil else {
-                            print("Photo loading canceled")
-                            return
-                        }
-
-                        guard let data = data, let image = UIImage(data: data) else {
-                            // We can set some "empty.jpg" to
-                            return
-                        }
-
-                        self.loading = false
-                        self.imageView.image = image
-
-                        ImageCache.set(image, forKey: self.photo!.url)
-
-                        print("Photo loaded from internet")
-                    }
-                }
-                task!.resume()
-            }
+            photo?.startLoadingImage({ (image, error) -> Void in
+                self.imageView.image = image
+                self.loading = error != nil
+            })
         }
     }
 

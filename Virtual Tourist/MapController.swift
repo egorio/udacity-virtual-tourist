@@ -66,7 +66,10 @@ class MapController: ViewController, MKMapViewDelegate {
 
             let pin = Pin(latitude: coordinate.latitude as Double, longitude: coordinate.longitude as Double, context: context)
 
+            pin.flickr.loadNewPhotos(context, handler: { _ in self.context.saveQuietly()})
+
             mapView.addAnnotation(pin)
+
             context.saveQuietly()
 
             print("Pin created")

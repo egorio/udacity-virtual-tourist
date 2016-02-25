@@ -24,11 +24,22 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
     var insertedIndexPaths: [NSIndexPath]!
     var deletedIndexPaths: [NSIndexPath]!
 
+    // Yeah baby! It's a FetchedResultsController
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let fetchRequest = NSFetchRequest(entityName: "Photo")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "pin == %@", self.pin!);
+
+        return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: nil)
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = self.editButtonItem()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "OK", style: .Plain, target: self, action: "goBackToMap")
+
+        newCollectionButton.addTarget(self, action: "loadNewPhotos", forControlEvents: .TouchUpInside)
 
         mapView.addAnnotation(pin!)
         mapView.setRegion(MKCoordinateRegion(center: pin!.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)), animated: true)
@@ -37,25 +48,21 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
         collectionView.delegate = self
         collectionView.dataSource = self
 
-        setupCollectionFlowLayout()
-
         fetchedResultsController.delegate = self
-        do {
-            try fetchedResultsController.performFetch()
 
-            print("Photos loaded from core data")
-        } catch { }
+        setupCollectionFlowLayout()
     }
 
-    lazy var fetchedResultsController: NSFetchedResultsController = {
+    override func viewWillAppear(animated: Bool) {
+        do {
+            try fetchedResultsController.performFetch()
+            print("Photos loaded from core data")
+        } catch { }
 
-        let fetchRequest = NSFetchRequest(entityName: "Photo")
-
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-        fetchRequest.predicate = NSPredicate(format: "pin == %@", self.pin!);
-
-        return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: nil)
-    }()
+        if fetchedResultsController.fetchedObjects!.count == 0 {
+            loadNewPhotos()
+        }
+    }
 
     /*
      * Change controler state to editing and back
@@ -71,10 +78,11 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
         })
     }
 
-    @IBAction func loadPhotos(sender: AnyObject? = nil) {
-        guard newCollectionButton.enabled == true else {
-            return
-        }
+    /*
+     * Load new portion of photos from Flickr
+     */
+    func loadNewPhotos() {
+        newCollectionButton.enabled = false
 
         // Remove current photos
         let photos = fetchedResultsController.fetchedObjects as? [Photo] ?? []
@@ -82,28 +90,11 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
             context.deleteObject(photo)
         }
 
-        context.saveQuietly()
-
-        newCollectionButton.enabled = false
-
         // Load new photos from Flickr
-        FlickrClient.shared.getPhotosByLocation(pin!.latitude as Double, longitude: pin!.longitude as Double) { (photos, error) -> Void in
-            guard error == nil else {
-                return
-            }
-
-            for photo in photos! where photo["url_m"] != nil {
-                _ = Photo(flickrDictionary: photo, pin: self.pin!, context: self.context)
-            }
-
+        pin!.flickr.loadNewPhotos(context, handler: { _ in
             self.context.saveQuietly()
-
-            dispatch_async(dispatch_get_main_queue(), {
-                self.newCollectionButton.enabled = true
-            })
-
-            print("Photos loaded from internet")
-        }
+            self.newCollectionButton.enabled = true
+        })
     }
 
     /*
@@ -111,7 +102,6 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
      */
     func goBackToMap() {
         navigationController?.popViewControllerAnimated(true)
-
         print("Go to Map view")
     }
 
@@ -178,13 +168,10 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
         layout.itemSize = CGSizeMake(dimension, dimension)
 
         collectionView.collectionViewLayout = layout
-
-        print("Cells configured")
     }
 }
 
 extension CollectionController: NSFetchedResultsControllerDelegate {
-
     /*
      * Prepare to interting or deleting cells
      */
@@ -219,8 +206,6 @@ extension CollectionController: NSFetchedResultsControllerDelegate {
             for indexPath in self.deletedIndexPaths {
                 self.collectionView.deleteItemsAtIndexPaths([indexPath])
             }
-
-            print("Collection updated")
-            }, completion: nil)
+        }, completion: nil)
     }
 }

@@ -18,13 +18,15 @@
 		E81B30DC1C766771007751F8 /* CollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B30DB1C766771007751F8 /* CollectionController.swift */; };
 		E81B30DF1C7667D8007751F8 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B30DE1C7667D8007751F8 /* Pin.swift */; };
 		E81B30E21C766BC3007751F8 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B30E11C766BC3007751F8 /* CoreDataStackManager.swift */; };
-		E81B30E91C766E39007751F8 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E81B30E71C766E39007751F8 /* Data.xcdatamodeld */; };
 		E81B30F21C767120007751F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B30F11C767120007751F8 /* Photo.swift */; };
 		E81B31001C77CDEB007751F8 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B30FF1C77CDEB007751F8 /* PhotoCollectionViewCell.swift */; };
 		E81B310C1C7B8DEC007751F8 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B310B1C7B8DEC007751F8 /* ApiClient.swift */; };
 		E81B31101C7B908C007751F8 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B310F1C7B908C007751F8 /* FlickrClient.swift */; };
 		E81B31241C7BBAE4007751F8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B31221C7BBAE4007751F8 /* ViewController.swift */; };
-		E8317C171C7E3505009BA335 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8317C161C7E3505009BA335 /* ImageCache.swift */; };
+		E81C221E1C7F9E220093A006 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E81C221C1C7F9E220093A006 /* Data.xcdatamodeld */; };
+		E81C22241C7FB5260093A006 /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81C22231C7FB5260093A006 /* FileCache.swift */; };
+		E81C222C1C7FBE2A0093A006 /* PinFlickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81C222B1C7FBE2A0093A006 /* PinFlickr.swift */; };
+		E8317C171C7E3505009BA335 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8317C161C7E3505009BA335 /* MemoryCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,13 +55,15 @@
 		E81B30DB1C766771007751F8 /* CollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionController.swift; sourceTree = "<group>"; };
 		E81B30DE1C7667D8007751F8 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 		E81B30E11C766BC3007751F8 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
-		E81B30E81C766E39007751F8 /* Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Data.xcdatamodel; sourceTree = "<group>"; };
 		E81B30F11C767120007751F8 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		E81B30FF1C77CDEB007751F8 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		E81B310B1C7B8DEC007751F8 /* ApiClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		E81B310F1C7B908C007751F8 /* FlickrClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		E81B31221C7BBAE4007751F8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E8317C161C7E3505009BA335 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		E81C221D1C7F9E220093A006 /* Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Data.xcdatamodel; sourceTree = "<group>"; };
+		E81C22231C7FB5260093A006 /* FileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
+		E81C222B1C7FBE2A0093A006 /* PinFlickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinFlickr.swift; sourceTree = "<group>"; };
+		E8317C161C7E3505009BA335 /* MemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +110,7 @@
 				E81B30911C750C86007751F8 /* AppDelegate.swift */,
 				E81B30951C750C86007751F8 /* Main.storyboard */,
 				E81B309A1C750C86007751F8 /* LaunchScreen.storyboard */,
-				E81B30E71C766E39007751F8 /* Data.xcdatamodeld */,
+				E81C221C1C7F9E220093A006 /* Data.xcdatamodeld */,
 				E81B30CB1C7631A5007751F8 /* Controllers */,
 				E81B310A1C7B8DDF007751F8 /* Clients */,
 				E81B30CA1C763197007751F8 /* Models */,
@@ -132,6 +136,7 @@
 			children = (
 				E81B30DE1C7667D8007751F8 /* Pin.swift */,
 				E81B30F11C767120007751F8 /* Photo.swift */,
+				E81C222B1C7FBE2A0093A006 /* PinFlickr.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -159,7 +164,8 @@
 			children = (
 				E81B30D71C765018007751F8 /* Config.swift */,
 				E81B30E11C766BC3007751F8 /* CoreDataStackManager.swift */,
-				E8317C161C7E3505009BA335 /* ImageCache.swift */,
+				E8317C161C7E3505009BA335 /* MemoryCache.swift */,
+				E81C22231C7FB5260093A006 /* FileCache.swift */,
 			);
 			name = Storages;
 			sourceTree = "<group>";
@@ -285,16 +291,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				E81B30F21C767120007751F8 /* Photo.swift in Sources */,
-				E8317C171C7E3505009BA335 /* ImageCache.swift in Sources */,
+				E8317C171C7E3505009BA335 /* MemoryCache.swift in Sources */,
 				E81B30DF1C7667D8007751F8 /* Pin.swift in Sources */,
 				E81B30941C750C86007751F8 /* MapController.swift in Sources */,
 				E81B30DC1C766771007751F8 /* CollectionController.swift in Sources */,
 				E81B30921C750C86007751F8 /* AppDelegate.swift in Sources */,
 				E81B31001C77CDEB007751F8 /* PhotoCollectionViewCell.swift in Sources */,
+				E81C222C1C7FBE2A0093A006 /* PinFlickr.swift in Sources */,
 				E81B30E21C766BC3007751F8 /* CoreDataStackManager.swift in Sources */,
-				E81B30E91C766E39007751F8 /* Data.xcdatamodeld in Sources */,
 				E81B31101C7B908C007751F8 /* FlickrClient.swift in Sources */,
 				E81B31241C7BBAE4007751F8 /* ViewController.swift in Sources */,
+				E81C22241C7FB5260093A006 /* FileCache.swift in Sources */,
+				E81C221E1C7F9E220093A006 /* Data.xcdatamodeld in Sources */,
 				E81B30D81C765018007751F8 /* Config.swift in Sources */,
 				E81B310C1C7B8DEC007751F8 /* ApiClient.swift in Sources */,
 			);
@@ -502,12 +510,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		E81B30E71C766E39007751F8 /* Data.xcdatamodeld */ = {
+		E81C221C1C7F9E220093A006 /* Data.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				E81B30E81C766E39007751F8 /* Data.xcdatamodel */,
+				E81C221D1C7F9E220093A006 /* Data.xcdatamodel */,
 			);
-			currentVersion = E81B30E81C766E39007751F8 /* Data.xcdatamodel */;
+			currentVersion = E81C221D1C7F9E220093A006 /* Data.xcdatamodel */;
 			path = Data.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -118,9 +118,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKf-t1-EcN">
                                 <rect key="frame" x="248" y="562" width="104" height="30"/>
                                 <state key="normal" title="New Collection"/>
-                                <connections>
-                                    <action selector="loadPhotos:" destination="QDn-fX-AUX" eventType="touchUpInside" id="Pvm-GY-sPz"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Photos to Delete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zT7-IV-TWJ">
                                 <rect key="frame" x="0.0" y="600" width="600" height="46"/>

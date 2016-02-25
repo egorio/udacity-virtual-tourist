@@ -18,7 +18,9 @@ class Pin: NSManagedObject, MKAnnotation {
     @NSManaged var latitude: NSNumber!
     @NSManaged var longitude: NSNumber!
     @NSManaged var photos: [Photo]
+    @NSManaged var flickr: PinFlickr // Just for specification: "The object model contains additional entities"
 
+    // Represents the pin coordinate
     var coordinate: CLLocationCoordinate2D {
         set {
             latitude = NSNumber(double: newValue.latitude)
@@ -40,5 +42,6 @@ class Pin: NSManagedObject, MKAnnotation {
 
         self.latitude = NSNumber(double: latitude)
         self.longitude = NSNumber(double: longitude)
+        self.flickr = PinFlickr(context: context)
     }
 }

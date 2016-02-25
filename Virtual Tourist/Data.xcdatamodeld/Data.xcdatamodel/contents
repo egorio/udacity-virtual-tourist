@@ -8,10 +8,17 @@
     <entity name="Pin" representedClassName=".Pin" syncable="YES">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="photos" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Photo" inverseName="pin" inverseEntity="Photo" syncable="YES"/>
+        <relationship name="flickr" maxCount="1" deletionRule="Cascade" destinationEntity="PinFlickr" inverseName="pin" inverseEntity="PinFlickr" syncable="YES"/>
+        <relationship name="photos" toMany="YES" deletionRule="Cascade" destinationEntity="Photo" inverseName="pin" inverseEntity="Photo" syncable="YES"/>
+    </entity>
+    <entity name="PinFlickr" representedClassName=".PinFlickr" syncable="YES">
+        <attribute name="nextPage" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="totalPages" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="pin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" inverseName="flickr" inverseEntity="Pin" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Photo" positionX="-54" positionY="9" width="128" height="90"/>
-        <element name="Pin" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Photo" positionX="-54" positionY="-9" width="128" height="90"/>
+        <element name="Pin" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="PinFlickr" positionX="-45" positionY="36" width="128" height="90"/>
     </elements>
 </model>

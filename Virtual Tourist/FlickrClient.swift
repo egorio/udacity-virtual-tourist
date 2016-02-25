@@ -22,7 +22,7 @@ class FlickrClient: ApiClient {
     /*
      * Returns photos
      */
-    func getPhotosByLocation(latitude: Double, longitude: Double, handler: (photos: [[String : AnyObject]]?, error: String?) -> Void) {
+    func searchPhotosByCoordinate(latitude: Double, longitude: Double, page: Int = 1, handler: (photos: [[String : AnyObject]]?, pages: Int, error: String?) -> Void) {
 
         let params = [
             "method": "flickr.photos.search",
@@ -33,29 +33,36 @@ class FlickrClient: ApiClient {
             "format": "json",
             "nojsoncallback": "1",
             "per_page": "30",
+            "page": String(page),
         ]
 
         let request = prepareRequest("\(apiUrl)", params: params)
 
         processResuest(request) { (result, error) -> Void in
             guard error == nil else {
-                handler(photos: nil, error: error)
+                handler(photos: nil, pages: 0, error: error)
                 return
             }
 
             guard let photoData = result!["photos"] as? [String : AnyObject] else {
                 print("Can't find [photos] in response")
-                handler(photos: nil, error: "Connection error")
+                handler(photos: nil, pages: 0, error: "Wrong response")
+                return
+            }
+
+            guard let pages = photoData["pages"] as? Int else {
+                print("Can't find [photos][pages] in response")
+                handler(photos: nil, pages: 0, error: "Wrong response")
                 return
             }
 
             guard let results = photoData["photo"] as? [[String : AnyObject]] else {
                 print("Can't find [photos][photo] in response")
-                handler(photos: nil, error: "Connection error")
+                handler(photos: nil, pages: 0, error: "Wrong response")
                 return
             }
 
-            handler(photos: results, error: nil)
+            handler(photos: results, pages: pages, error: nil)
         }
     }
 
