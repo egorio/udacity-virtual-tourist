@@ -44,4 +44,18 @@ class Pin: NSManagedObject, MKAnnotation {
         self.longitude = NSNumber(double: longitude)
         self.flickr = PinFlickr(context: context)
     }
+
+    func deletePhotos(context: NSManagedObjectContext, handler: (error: String?) -> Void) {
+        let request = NSFetchRequest(entityName: "Photo")
+        request.predicate = NSPredicate(format: "pin == %@", self)
+
+        do {
+            let photos = try context.executeFetchRequest(request) as! [Photo]
+            for photo in photos {
+                context.deleteObject(photo)
+            }
+        } catch { }
+
+        handler(error: nil)
+    }
 }

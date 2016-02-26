@@ -85,10 +85,7 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
         newCollectionButton.enabled = false
 
         // Remove current photos
-        let photos = fetchedResultsController.fetchedObjects as? [Photo] ?? []
-        for photo in photos {
-            context.deleteObject(photo)
-        }
+        pin!.deletePhotos(context) { _ in }
 
         // Load new photos from Flickr
         pin!.flickr.loadNewPhotos(context, handler: { _ in

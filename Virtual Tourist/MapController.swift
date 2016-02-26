@@ -16,6 +16,8 @@ class MapController: ViewController, MKMapViewDelegate {
     @IBOutlet weak var hintLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
 
+    var justDragged = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -129,7 +131,12 @@ class MapController: ViewController, MKMapViewDelegate {
      */
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
         if newState == .Ending {
-            context.saveQuietly()
+            let pin = view.annotation as! Pin
+
+            pin.deletePhotos(context, handler: { _ in self.context.saveQuietly()})
+            pin.flickr.loadNewPhotos(context, handler: { _ in self.context.saveQuietly()})
+
+            justDragged = true
 
             print("Pin moved")
         }
@@ -139,10 +146,15 @@ class MapController: ViewController, MKMapViewDelegate {
      * Show or delete pin on tap
      */
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        mapView.deselectAnnotation(view.annotation, animated: false)
-
-        editing
-            ? deletePin(view.annotation as! Pin)
-            : viewPin(view.annotation as! Pin)
+        if justDragged {
+            // After dragging we don't need to handle didSelectAnnotationView
+            justDragged = false
+            mapView.deselectAnnotation(view.annotation, animated: false)
+        }
+        else {
+            editing
+                ? deletePin(view.annotation as! Pin)
+                : viewPin(view.annotation as! Pin)
+        }
     }
 }

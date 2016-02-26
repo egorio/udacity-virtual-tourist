@@ -106,9 +106,7 @@ class Photo: NSManagedObject {
     override func prepareForDeletion() {
         super.prepareForDeletion()
 
-        MemoryCache.remove(self.id)
-        FileCache.remove(self.id)
-
-        print("Photo file deleted")
+        MemoryCache.remove(self.filePath)
+        FileCache.remove(self.filePath)
     }
 }
