@@ -16,8 +16,6 @@ class MapController: ViewController, MKMapViewDelegate {
     @IBOutlet weak var hintLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
 
-    var justDragged = false
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -122,6 +120,7 @@ class MapController: ViewController, MKMapViewDelegate {
 
         pinView.animatesDrop = true
         pinView.draggable = true
+        pinView.selected = true // Hack: didChangeDragState ask first select pin, let's make pins be selected by default
 
         return pinView
     }
@@ -130,13 +129,11 @@ class MapController: ViewController, MKMapViewDelegate {
      * Update pin coordinates when it is moved
      */
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
-        if newState == .Ending {
+        if oldState == .Ending {
             let pin = view.annotation as! Pin
 
             pin.deletePhotos(context, handler: { _ in self.context.saveQuietly()})
             pin.flickr.loadNewPhotos(context, handler: { _ in self.context.saveQuietly()})
-
-            justDragged = true
 
             print("Pin moved")
         }
@@ -146,15 +143,19 @@ class MapController: ViewController, MKMapViewDelegate {
      * Show or delete pin on tap
      */
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        if justDragged {
-            // After dragging we don't need to handle didSelectAnnotationView
-            justDragged = false
-            mapView.deselectAnnotation(view.annotation, animated: false)
-        }
-        else {
-            editing
-                ? deletePin(view.annotation as! Pin)
-                : viewPin(view.annotation as! Pin)
-        }
+        let pin = view.annotation as! Pin
+
+        // Remove current pin from selected list to allow it be selected again
+        mapView.deselectAnnotation(pin, animated: false)
+
+        editing ? deletePin(pin) : viewPin(pin)
+    }
+
+    /*
+     * Deselect pin after it was selected
+     * We need to keep "selected = true" to allow pin be draggble without additional additional tap
+     */
+    func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
+        view.selected = true
     }
 }
