@@ -132,7 +132,7 @@ class MapController: ViewController, MKMapViewDelegate {
      * Update pin coordinates when it is moved
      */
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
-        if oldState == .Ending {
+        if editing == false && oldState == .Ending {
             let pin = view.annotation as! Pin
 
             // When pin was moved it's time to replace photos with new ones
