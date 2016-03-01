@@ -19,13 +19,13 @@ class MapController: ViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = self.editButtonItem()
+        navigationItem.rightBarButtonItem = editButtonItem()
 
         mapView.delegate = self
         mapView.addAnnotations(fetchAllPins())
         mapView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "createPin:"))
 
-        // Set previous state to the map
+        // Restore previous state of the map
         if let region = Config.shared.mapRegion {
             mapView.setRegion(region, animated: true)
         }
@@ -44,7 +44,7 @@ class MapController: ViewController, MKMapViewDelegate {
     }
 
     /*
-     * Load all pins from core data
+     * Load all pins from the core data
      */
     func fetchAllPins() -> [Pin] {
         do {
@@ -61,12 +61,13 @@ class MapController: ViewController, MKMapViewDelegate {
      */
     func createPin(sender: UIGestureRecognizer) {
         if sender.state == .Began {
-            let point = sender.locationInView(self.mapView)
-            let coordinate = self.mapView.convertPoint(point, toCoordinateFromView: self.mapView)
+            let point = sender.locationInView(mapView)
+            let coordinate = mapView.convertPoint(point, toCoordinateFromView: mapView)
 
             let pin = Pin(latitude: coordinate.latitude as Double, longitude: coordinate.longitude as Double, context: context)
 
-            pin.flickr.loadNewPhotos(context, handler: { _ in self.context.saveQuietly()})
+            // As soon as new pin is created - try to find photos for it in background
+            pin.flickr.loadNewPhotos(context, handler: { _ in self.context.saveQuietly() })
 
             mapView.addAnnotation(pin)
 
@@ -101,7 +102,7 @@ class MapController: ViewController, MKMapViewDelegate {
     }
 
     /*
-     * Save map "position" to the app config
+     * Save map state (position) to the app config file
      */
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         Config.shared.mapRegion = mapView.region
@@ -120,7 +121,9 @@ class MapController: ViewController, MKMapViewDelegate {
 
         pinView.animatesDrop = true
         pinView.draggable = true
-        pinView.selected = true // Hack: didChangeDragState ask first select pin, let's make pins be selected by default
+
+        // Func didChangeDragState will call only after pin been selected. Let's make all pins selected by default.
+        pinView.selected = true
 
         return pinView
     }
@@ -132,8 +135,9 @@ class MapController: ViewController, MKMapViewDelegate {
         if oldState == .Ending {
             let pin = view.annotation as! Pin
 
-            pin.deletePhotos(context, handler: { _ in self.context.saveQuietly()})
-            pin.flickr.loadNewPhotos(context, handler: { _ in self.context.saveQuietly()})
+            // When pin was moved it's time to replace photos with new ones
+            pin.deletePhotos(context, handler: { _ in self.context.saveQuietly() })
+            pin.flickr.loadNewPhotos(context, handler: { _ in self.context.saveQuietly() })
 
             print("Pin moved")
         }
@@ -153,7 +157,7 @@ class MapController: ViewController, MKMapViewDelegate {
 
     /*
      * Deselect pin after it was selected
-     * We need to keep "selected = true" to allow pin be draggble without additional additional tap
+     * We have to keep "selected = true" to allow pin be draggble without additional tap (selection)
      */
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
         view.selected = true

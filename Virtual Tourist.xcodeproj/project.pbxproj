@@ -12,7 +12,6 @@
 		E81B30971C750C86007751F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E81B30951C750C86007751F8 /* Main.storyboard */; };
 		E81B30991C750C86007751F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E81B30981C750C86007751F8 /* Assets.xcassets */; };
 		E81B309C1C750C86007751F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E81B309A1C750C86007751F8 /* LaunchScreen.storyboard */; };
-		E81B30A71C750C86007751F8 /* Virtual_TouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B30A61C750C86007751F8 /* Virtual_TouristUITests.swift */; };
 		E81B30B81C751A66007751F8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81B30B71C751A66007751F8 /* MapKit.framework */; };
 		E81B30D81C765018007751F8 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B30D71C765018007751F8 /* Config.swift */; };
 		E81B30DC1C766771007751F8 /* CollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B30DB1C766771007751F8 /* CollectionController.swift */; };
@@ -48,8 +47,6 @@
 		E81B309B1C750C86007751F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E81B309D1C750C86007751F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E81B30A21C750C86007751F8 /* Virtual TouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Virtual TouristUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E81B30A61C750C86007751F8 /* Virtual_TouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Virtual_TouristUITests.swift; sourceTree = "<group>"; };
-		E81B30A81C750C86007751F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E81B30B71C751A66007751F8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E81B30D71C765018007751F8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E81B30DB1C766771007751F8 /* CollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionController.swift; sourceTree = "<group>"; };
@@ -90,7 +87,6 @@
 			children = (
 				E81B30B71C751A66007751F8 /* MapKit.framework */,
 				E81B30901C750C86007751F8 /* Virtual Tourist */,
-				E81B30A51C750C86007751F8 /* Virtual TouristUITests */,
 				E81B308F1C750C86007751F8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -120,15 +116,6 @@
 				E81B30981C750C86007751F8 /* Assets.xcassets */,
 			);
 			path = "Virtual Tourist";
-			sourceTree = "<group>";
-		};
-		E81B30A51C750C86007751F8 /* Virtual TouristUITests */ = {
-			isa = PBXGroup;
-			children = (
-				E81B30A61C750C86007751F8 /* Virtual_TouristUITests.swift */,
-				E81B30A81C750C86007751F8 /* Info.plist */,
-			);
-			path = "Virtual TouristUITests";
 			sourceTree = "<group>";
 		};
 		E81B30CA1C763197007751F8 /* Models */ = {
@@ -271,8 +258,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E81B309C1C750C86007751F8 /* LaunchScreen.storyboard in Resources */,
-				E81B30991C750C86007751F8 /* Assets.xcassets in Resources */,
 				E81B30971C750C86007751F8 /* Main.storyboard in Resources */,
+				E81B30991C750C86007751F8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,21 +277,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E81B30F21C767120007751F8 /* Photo.swift in Sources */,
+				E81B310C1C7B8DEC007751F8 /* ApiClient.swift in Sources */,
+				E81B30921C750C86007751F8 /* AppDelegate.swift in Sources */,
+				E81B30DC1C766771007751F8 /* CollectionController.swift in Sources */,
+				E81B30D81C765018007751F8 /* Config.swift in Sources */,
+				E81B30E21C766BC3007751F8 /* CoreDataStackManager.swift in Sources */,
+				E81C221E1C7F9E220093A006 /* Data.xcdatamodeld in Sources */,
+				E81C22241C7FB5260093A006 /* FileCache.swift in Sources */,
+				E81B31101C7B908C007751F8 /* FlickrClient.swift in Sources */,
+				E81B30941C750C86007751F8 /* MapController.swift in Sources */,
 				E8317C171C7E3505009BA335 /* MemoryCache.swift in Sources */,
 				E81B30DF1C7667D8007751F8 /* Pin.swift in Sources */,
-				E81B30941C750C86007751F8 /* MapController.swift in Sources */,
-				E81B30DC1C766771007751F8 /* CollectionController.swift in Sources */,
-				E81B30921C750C86007751F8 /* AppDelegate.swift in Sources */,
+				E81B30F21C767120007751F8 /* Photo.swift in Sources */,
 				E81B31001C77CDEB007751F8 /* PhotoCollectionViewCell.swift in Sources */,
 				E81C222C1C7FBE2A0093A006 /* PinFlickr.swift in Sources */,
-				E81B30E21C766BC3007751F8 /* CoreDataStackManager.swift in Sources */,
-				E81B31101C7B908C007751F8 /* FlickrClient.swift in Sources */,
 				E81B31241C7BBAE4007751F8 /* ViewController.swift in Sources */,
-				E81C22241C7FB5260093A006 /* FileCache.swift in Sources */,
-				E81C221E1C7F9E220093A006 /* Data.xcdatamodeld in Sources */,
-				E81B30D81C765018007751F8 /* Config.swift in Sources */,
-				E81B310C1C7B8DEC007751F8 /* ApiClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,7 +299,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E81B30A71C750C86007751F8 /* Virtual_TouristUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

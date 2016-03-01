@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 class ViewController: UIViewController {
+
     // Current core data context
     lazy var context: NSManagedObjectContext = {
         return CoreDataStackManager.sharedInstance().managedObjectContext

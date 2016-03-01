@@ -23,7 +23,7 @@ class FileCache {
         print("Photo file created \(forPath)")
     }
 
-    // Remover for images
+    // Remover
     static func remove(forPath: String) {
         if NSFileManager.defaultManager().fileExistsAtPath(forPath) {
             do {

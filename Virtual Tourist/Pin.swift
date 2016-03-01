@@ -45,6 +45,9 @@ class Pin: NSManagedObject, MKAnnotation {
         self.flickr = PinFlickr(context: context)
     }
 
+    /*
+     * Delete all related photos from core data
+     */
     func deletePhotos(context: NSManagedObjectContext, handler: (error: String?) -> Void) {
         let request = NSFetchRequest(entityName: "Photo")
         request.predicate = NSPredicate(format: "pin == %@", self)

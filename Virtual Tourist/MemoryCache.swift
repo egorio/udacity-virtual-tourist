@@ -28,7 +28,7 @@ class MemoryCache {
         shared.setObject(data, forKey: forKey, cost: (UIImageJPEGRepresentation(data, 0)?.length) ?? 0)
     }
 
-    // Remover for images
+    // Remover
     static func remove(forKey: String) {
         shared.removeObjectForKey(forKey)
     }

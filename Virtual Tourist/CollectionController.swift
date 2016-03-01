@@ -24,7 +24,7 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
     var insertedIndexPaths: [NSIndexPath]!
     var deletedIndexPaths: [NSIndexPath]!
 
-    // Yeah baby! It's a FetchedResultsController
+    // Yeah baby! It's a FetchedResultsController for pin's photos
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "Photo")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
@@ -59,6 +59,7 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
             print("Photos loaded from core data")
         } catch { }
 
+        // Let's searh new photos if we don't have them yet
         if fetchedResultsController.fetchedObjects!.count == 0 {
             loadNewPhotos()
         }
@@ -72,7 +73,7 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
 
         // Show the hint when controller in "editing" mode
         UIView.animateWithDuration(0.3, animations: {
-            self.view.constraints.filter({ $0.identifier == "HintLabelToBottom"}).first!.constant = editing ? 0 : -self.hintLabel.frame.height
+            self.view.constraints.filter({ $0.identifier == "HintLabelToBottom" }).first!.constant = editing ? 0 : -self.hintLabel.frame.height
             self.newCollectionButton.enabled = !editing
             self.view.layoutIfNeeded()
         })
@@ -138,9 +139,6 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
 
             print("Photo deleted")
         }
-        else {
-            // Preview photo
-        }
     }
 
     /*
@@ -151,7 +149,7 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
     }
 
     /*
-     * Configure cells size and spacing between them
+     * Configure cells size and spacing between them depend on interface orientation
      */
     func setupCollectionFlowLayout() {
         let items: CGFloat = view.frame.size.width > view.frame.size.height ? 5.0 : 3.0
@@ -169,6 +167,7 @@ class CollectionController: ViewController, UICollectionViewDelegate, UICollecti
 }
 
 extension CollectionController: NSFetchedResultsControllerDelegate {
+
     /*
      * Prepare to interting or deleting cells
      */
@@ -203,6 +202,6 @@ extension CollectionController: NSFetchedResultsControllerDelegate {
             for indexPath in self.deletedIndexPaths {
                 self.collectionView.deleteItemsAtIndexPaths([indexPath])
             }
-        }, completion: nil)
+            }, completion: nil)
     }
 }

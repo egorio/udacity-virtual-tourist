@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 /*
- * Pin model represents map annotation and allows it to store in core data
+ * PinFlickr model represents part of pin logic to load from photos Flickr
  */
 class PinFlickr: NSManagedObject {
 
@@ -18,6 +18,7 @@ class PinFlickr: NSManagedObject {
     @NSManaged var totalPages: Int32
     @NSManaged var pin: Pin
 
+    // Keep current process status here
     var loading = false
 
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {

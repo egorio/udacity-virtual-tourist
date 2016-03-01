@@ -55,7 +55,7 @@ class Photo: NSManagedObject {
     }
 
     /*
-     * Run backgroud task to download image for url
+     * Download image by url in background task
      */
     func startLoadingImage(handler: (image : UIImage?, error: String?) -> Void) {
         // Check in memory
@@ -64,13 +64,15 @@ class Photo: NSManagedObject {
             return handler(image: image, error: nil)
         }
 
-        // Check in file sistem
+        // Check in file system
         if let image = FileCache.get(filePath) {
             print("Photo loaded from file cache")
             return handler(image: image, error: nil)
         }
 
+        // Cancel existing task to prevent traffic flow
         cancelLoadingImage()
+
         task = NSURLSession.sharedSession().dataTaskWithRequest(NSURLRequest(URL: NSURL(string: url)!)) { data, response, downloadError in
             dispatch_async(dispatch_get_main_queue(), {
                 guard downloadError == nil else {
@@ -101,7 +103,7 @@ class Photo: NSManagedObject {
     }
 
     /*
-     * Remove image from local storage when photo deleted
+     * Remove image from local storage when photo object deleting
      */
     override func prepareForDeletion() {
         super.prepareForDeletion()
