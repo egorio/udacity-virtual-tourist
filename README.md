@@ -1,6 +1,6 @@
 # Virtual Tourist
 
-The Virtual Tourist is result of "Persistence and Core Data" lesson of Udacity's iOS Developer Nanodegree course.
+The Virtual Tourist is result of **Persistence and Core Data** lesson of **Udacity's iOS Developer Nanodegree** course.
 
 The app downloads and stores images from Flickr. The app allows users to drop pins on a map, as if they were stops on a tour. 
 Users will then be able to download pictures for the location and persist boththe pictures, and the association of 
