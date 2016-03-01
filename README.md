@@ -12,14 +12,14 @@ they need them anymore.
 
 ## Implementation
 
-Application has two scenes:
+The app has two view controller scenes:
 
-- **MapController** - shows the map and allows user to drop pins on it. Users can drag pin to a new location after dropping 
-  them. As soon as a pin is dropped photo data for the pin location is fetched from Flickr. The actual photo downloads occur 
-  in the CollectionController.
+- **MapController** - shows the map and allows user to drop pins around the world. Users can drag pin to a new location after
+  dropping them. As soon as a pin is dropped photo data for the pin location is fetched from Flickr. The actual photo
+  downloads occur in the CollectionController.
 
-- **CollectionController** - allow users to download photos and edit an album for a location. Users can create new collections
-  and delete photos from existing albums.
+- **CollectionController** - allow users to download photos and edit an album for a location. Users can create new
+  collections and delete photos from existing albums.
 
 Application uses CoreData to store Pins (`NSManagedObjectContext.executeFetchRequest`) and Photos 
 (`NSFetchedResultsController`) objects. All API calls run in background (`NSURLSession.dataTaskWithRequest`).
